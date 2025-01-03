@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Binz Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="toggle-mode" id="toggleMode" title="Toggle Dark/Light Mode">
+        <i class="fas fa-lightbulb"></i>
+    </div>
+    <h1>
+        Super Binz
+        <span class="mobile-break">Tac Toe</span>
+    </h1>
+
+    <div class="current-player" id="currentPlayer">Current Player: X</div>
+    <div class="board" id="board"></div>
+    <button class="pixel-button" id="resetButton">Reset Game</button>
+
+    <div class="modal" id="resetModal">
+        <p>Are you sure you want to reset the game?</p>
+        <div class="modal-buttons">
+            <button class="yes">Yes</button>
+            <button class="no">No</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
