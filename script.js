@@ -38,16 +38,17 @@ for (let i = 0; i < 9; i++) {
 
 function handleCellClick(cell) {
   if (cell.textContent || cell.classList.contains("taken")) return;
+
   cell.textContent = currentPlayer;
   cell.classList.add("taken", currentPlayer.toLowerCase());
-  if (checkWin()) {
-    setTimeout(() => alert(`${currentPlayer} wins!`), 100);
-    resetGame();
+
+  if (checkWin(currentPlayer)) {
+    showVictoryMessage(currentPlayer);
     return;
   }
+
   if (isDraw()) {
-    setTimeout(() => alert(`It's a draw!`), 100);
-    resetGame();
+    showDrawMessage();
     return;
   }
   currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -58,7 +59,7 @@ function updateCurrentPlayerDisplay() {
   currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 }
 
-function checkWin() {
+function checkWin(player) {
   const cells = document.querySelectorAll(".cell");
   const winPatterns = [
     [0, 1, 2],
@@ -72,7 +73,7 @@ function checkWin() {
   ];
 
   return winPatterns.some((pattern) =>
-    pattern.every((index) => cells[index].textContent === currentPlayer)
+    pattern.every((index) => cells[index].textContent === player)
   );
 }
 
@@ -103,6 +104,148 @@ yesButton.addEventListener("click", () => {
 noButton.addEventListener("click", () => {
   resetModal.style.display = "none";
 });
+
+toggleMode.addEventListener("click", () => {
+  isDarkMode = !isDarkMode;
+  updateTheme(isDarkMode);
+});
+
+updateTheme(isDarkMode);
+
+function showVictoryMessage(player) {
+  const victoryModal = document.createElement("div");
+  victoryModal.classList.add("victory-modal");
+
+  if (player === "X") {
+    victoryModal.classList.add("x");
+  } else if (player === "O") {
+    victoryModal.classList.add("o");
+  }
+
+  const victoryMessage = document.createElement("p");
+  victoryMessage.classList.add("victory-message");
+  victoryMessage.textContent = `${player} Wins! 🎉`;
+  victoryModal.appendChild(victoryMessage);
+
+  const backButton = document.createElement("button");
+  backButton.classList.add("back-button");
+  backButton.textContent = "Back";
+  victoryModal.appendChild(backButton);
+
+  document.body.appendChild(victoryModal);
+
+  setTimeout(() => {
+    victoryModal.style.display = "block";
+
+    backButton.addEventListener("click", () => {
+      resetGame();
+      document.body.removeChild(victoryModal);
+    });
+  }, 500);
+}
+
+function showDrawMessage() {
+  const drawModal = document.createElement("div");
+  drawModal.classList.add("draw-modal");
+
+  drawModal.classList.add("draw");
+
+  const drawMessage = document.createElement("p");
+  drawMessage.classList.add("draw-message");
+  drawMessage.textContent = "It's a Draw! 😐";
+  drawModal.appendChild(drawMessage);
+
+  const backButton = document.createElement("button");
+  backButton.classList.add("back-button");
+  backButton.textContent = "Back";
+  drawModal.appendChild(backButton);
+
+  document.body.appendChild(drawModal);
+
+  setTimeout(() => {
+    drawModal.style.display = "block";
+
+    backButton.addEventListener("click", () => {
+      resetGame();
+      document.body.removeChild(drawModal);
+    });
+  }, 500);
+}
+
+const style = document.createElement("style");
+style.innerHTML = `
+        .draw-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            font-family: "Press Start 2P", cursive;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            border: 4px solid #000;
+            font-size: 1.2rem;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInModal 0.5s forwards;
+        }
+
+        @keyframes fadeInModal {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .draw-modal .draw-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .draw-modal .back-button {
+            padding: 10px 20px;
+            border: none;
+            font-family: "Press Start 2P", cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 80%;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .draw-modal .back-button:hover {
+            opacity: 0.8;
+        }
+
+        .draw-modal.draw {
+            background-color: #ffcc00; /* Yellow for draw */
+        }
+
+        .draw-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0;
+            animation: fadeInBackground 1s forwards;
+            background-color: #ffcc00; /* Yellow for draw */
+        }
+
+        @keyframes fadeInBackground {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+    `;
+document.head.appendChild(style);
 
 toggleMode.addEventListener("click", () => {
   isDarkMode = !isDarkMode;
