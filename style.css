@@ -191,6 +191,143 @@ h1 {
   opacity: 0.8;
 }
 
+.victory-modal,
+.draw-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.5rem;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.victory-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  border: 4px solid #000;
+  font-size: 1.2rem;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInModal 0.5s forwards;
+}
+
+@keyframes fadeInModal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.victory-modal .victory-message {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.victory-modal .back-button {
+  padding: 10px 20px;
+  border: none;
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 80%;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.victory-modal .back-button:hover {
+  opacity: 0.8;
+}
+
+.victory-modal.x .back-button {
+  background-color: #00ff00;
+  color: black;
+}
+
+.victory-modal.o .back-button {
+  background-color: #ff0000;
+  color: white;
+}
+
+@keyframes fadeInModal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.victory-background-x {
+  background-color: #00ff00;
+}
+
+.victory-background-o {
+  background-color: #ff0000;
+}
+
+.victory-background-x,
+.victory-background-o {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0;
+  animation: fadeInBackground 1s forwards;
+}
+
+.victory-background-x {
+  background-color: #00ff00;
+}
+
+.victory-background-o {
+  background-color: #ff0000;
+}
+
+@keyframes fadeInBackground {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
 @media (max-width: 480px) {
   body {
     padding: 10px;
